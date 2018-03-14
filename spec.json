@@ -1,0 +1,44 @@
+{
+  "type": "index_hadoop",
+  "spec": {
+    "ioConfig": {
+      "type": "hadoop",
+      "inputSpec": {
+        "type": "static",
+        "paths": "file.csv"
+      }
+    },
+    "dataSchema": {
+      "dataSource": "test1",
+      "granularitySpec": {
+        "type": "uniform",
+        "segmentGranularity": "day",
+        "queryGranularity": "none",
+        "intervals": ["2018-02-12/2018-03-14"]
+      },
+      "parser": {
+        "type": "hadoopyString",
+        "parseSpec": {
+          "format": "csv",
+	  "columns":["Name", "Time", "Age", "Height", "Gender", "Race", "Favorite_Color", "Job", "Country", "U", "V", "W","X","Y","Z"], 
+          "dimensionsSpec": {
+            "dimensions": ["Time", "Age", "Height", "Gender", "Race", "Favorite_Color", "Job", "Country", "U", "V", "W","X","Y","Z"]
+          },
+          "timestampSpec": {
+            "format": "auto",
+            "column": "Time"
+          }
+        }
+      },
+      "metricsSpec": []
+    },
+    "tuningConfig": {
+      "type": "hadoop",
+      "partitionsSpec": {
+        "type": "hashed",
+        "targetPartitionSize": 5000000
+      },
+      "jobProperties": {}
+    }
+  }
+}
